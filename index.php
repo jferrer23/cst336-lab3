@@ -9,51 +9,91 @@
         
         <?php
         
+        function mapNumberToCard($num) {
+            $cardValue = $num % 13 + 1;
+            $cardSuit = floor($num / 13);
+            $suitStr = "";
+            
+            switch($num) {
+                case 0: $suitStr = "clubs";
+                        break;
+                case 1: $suitStr = "diamonds";
+                        break;
+                case 2: $suitStr = "hearts";
+                        break;
+                case 3: $suitStr = "spades";
+                        break;
+            }
+            
+            $card = array (
+                'num' => $cardValue,
+                'suit' => $cardSuit,
+                'imgUrl' => "./img/cards/",$cardStr,"/",$cardValue,".png"
+                );
+            
+        }
+        
+        function generateDeck() {
+            $cards = array();
+            for($i = 0; $i < 52; $i++) {
+                array_push($cards, $i);
+            }
+            shuffle($cards);
+            
+            return $cards;
+        }
+        
+        function generateHand($deck) {
+            $hand = array();
+                      
+            for($i = 0; $i < 3; $i++) {
+                $cardNum = array_pop($deck);
+                $card = mapNumberToCard($cardNum);
+                array_push($hand, $card);
+            }
+            
+            return $hand;
+        }
+        
+        $deck = generateDeck();
+        
+        
         $person = array(
             "name" => "Link",
             "imgUrl" => "./img/l.jpg",
-            "cards" => array(
-                    array("suit" => "hearts",
-                          "value" => "4"
-                    ),
-                    array("suit" => "clubs",
-                          "value" => "2"
-                    )
-                )
+            "cards" => generateHand($deck)
             );
             
-            function displayUser($person){
-                echo "Name: ".$person["name"]."<br>";
-                echo '<img src="'.$person["imgUrl"].'"></img>';
+        function displayUser($person){
+            echo "Name: ".$person["name"]."<br>";
+            echo '<img src="'.$person["imgUrl"].'"></img>';
             
-            // construct card path from array info
+        // construct card path from array info
             
-                 for($i =0; $i < count($person["cards"]); $i++)
-                {
-                 $card = $person["cards"][$i];
-                
-                $imgUrl = "./img/cards/".$card["suit"]."/".$card["value"].".png";
+            for($i =0; $i < count($person["cards"]); $i++) {
+                $card = $person["cards"][$i];
+            
+                $imgUrl = "./img/cards/",$card["suit"],"/",$card["value"],".png";
                 echo '<img src="'.$imgUrl.'"></img>';
                 
-                 }
+            }
                  
-                 echo calculateHandValue($person["cards"]);
+            echo calculateHandValue($person["cards"]);
                 
+        }
+            
+        function calculateHandValue($cards){
+            $sum = 0;
+            for($i =0; $i < count($cards); $i++) {
+                $sum+= intval($cards[$i]["num"], 10);
             }
-            
-            function calculateHandValue($cards){
-                $sum = 0;
-                for($i =0; $i < count($cards); $i++)
-                {
-                    $sum+= intval($cards[$i]["value"], 10);
-                }
                 
-                return $sum;
+            return $sum;
                 
-            }
+        }
             
             
-            displayUser($person);
+        displayUser($person);
             
             
         
