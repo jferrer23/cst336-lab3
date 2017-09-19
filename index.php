@@ -14,7 +14,7 @@
             $cardSuit = floor($num / 13);
             $suitStr = "";
             
-            switch($num) {
+            switch($cardSuit) {
                 case 0: $suitStr = "clubs";
                         break;
                 case 1: $suitStr = "diamonds";
@@ -28,8 +28,9 @@
             $card = array (
                 'num' => $cardValue,
                 'suit' => $cardSuit,
-                'imgUrl' => "./img/cards/",$cardStr,"/",$cardValue,".png"
+                'imgUrl' => "./img/cards/".$suitStr."/".$cardValue.".png"
                 );
+            return $card;
             
         }
         
@@ -68,16 +69,17 @@
             echo "Name: ".$person["name"]."<br>";
             echo '<img src="'.$person["imgUrl"].'"></img>';
             
-        // construct card path from array info
+            // construct card path from array info
             
             for($i =0; $i < count($person["cards"]); $i++) {
                 $card = $person["cards"][$i];
             
-                $imgUrl = "./img/cards/",$card["suit"],"/",$card["value"],".png";
-                echo '<img src="'.$imgUrl.'"></img>';
+                // $card = "./img/cards/",$card["suit"],"/",$card["value"],".png";
+                echo '<img src="'.$card["imgUrl"].'"></img>';
                 
             }
-                 
+                
+            // echo '<img src="', $person["cards"][1];
             echo calculateHandValue($person["cards"]);
                 
         }
