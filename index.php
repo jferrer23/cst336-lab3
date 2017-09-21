@@ -44,13 +44,25 @@
             return $cards;
         }
         
-        function generateHand($deck) {
+        function generateHand(&$deck) {
             $hand = array();
                       
-            for($i = 0; $i < 3; $i++) {
+            for(;;) {
+                if(count($deck) == 0)
+                {
+                    return;
+                }
                 $cardNum = array_pop($deck);
                 $card = mapNumberToCard($cardNum);
                 array_push($hand, $card);
+                $sum = calculateHandValue($hand);
+                if($sum > 42)
+                {
+                    array_pop($hand);
+                    array_push($deck, $cardNum);
+                    break;
+                }
+                
             }
             
             return $hand;
@@ -59,12 +71,26 @@
         $deck = generateDeck();
         
         
-        $person = array(
+        $person1 = array(
             "name" => "Link",
             "imgUrl" => "./img/l.jpg",
             "cards" => generateHand($deck)
             );
-            
+        $person2 = array(
+            "name" => "Mario",
+            "imgUrl" => "./img/m.png",
+            "cards" => generateHand($deck)
+            );
+        $person3 = array(
+            "name" => "Samus",
+            "imgUrl" => "./img/s.png",
+            "cards" => generateHand($deck)
+            );
+        $person4 = array(
+            "name" => "Tony",
+            "imgUrl" => "./img/t.gif",
+            "cards" => generateHand($deck)
+            );
         function displayUser($person){
             echo "Name: ".$person["name"]."<br>";
             echo '<img src="'.$person["imgUrl"].'"></img>';
@@ -95,7 +121,10 @@
         }
             
             
-        displayUser($person);
+        displayUser($person1);
+        displayUser($person2);
+        displayUser($person3);
+        displayUser($person4);
             
             
         
