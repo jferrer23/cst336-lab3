@@ -131,11 +131,16 @@
         // person object, card object
         // calc card value function
         // find winner
-        
-        
-        
-        
-        
+        $peoplearray= [$person1, $person2, $person3, $person4];
+        $scores= [];
+        for($i=0; $i<4; $i++)
+        {
+           $personcards = calculateHandValue($peoplearray[$i]["cards"]);
+           $scores[]=$personcards;
+        }
+       $maxV = max($scores);
+        $value= array_search($maxV, $scores);
+        echo "Winner ".$value;
         ?>
         
     </body>
