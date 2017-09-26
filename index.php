@@ -7,6 +7,16 @@
     
     <body>
         
+        <div id="wrapper">
+        
+        <table>
+            <tr>
+                <td><span id="title-text">SilverJack</span></td>
+            </tr>
+        </table>
+        
+        <table>
+        
         <?php
         
         function mapNumberToCard($num) {
@@ -91,12 +101,26 @@
             "imgUrl" => "./img/t.gif",
             "cards" => generateHand($deck)
             );
+            
+            
+        $playerlist = array();
+        
+        array_push($playerlist, $person1);
+        array_push($playerlist, $person2);
+        array_push($playerlist, $person3);
+        array_push($playerlist, $person4);
+        
+            
         function displayUser($person){
-            echo "Name: ".$person["name"]."<br>";
-            echo '<img src="'.$person["imgUrl"].'"></img>';
+            echo "<tr>";
+            echo "<td>";
+            echo '<span class="profile-name">Name: '.$person["name"]."</span><br>";
+            echo '<img src="'.$person["imgUrl"].'" class="profile-img"></img>';
             
             // construct card path from array info
+            echo "</td>";
             
+            echo "<td>";
             for($i =0; $i < count($person["cards"]); $i++) {
                 $card = $person["cards"][$i];
             
@@ -104,10 +128,14 @@
                 echo '<img src="'.$card["imgUrl"].'"></img>';
                 
             }
-                
+            echo "</td>";
+            
+            echo "<td>";
             // echo '<img src="', $person["cards"][1];
-            echo calculateHandValue($person["cards"]);
+            echo '<span class="card-val">'.calculateHandValue($person["cards"]).'</span>';
+             echo "</td>";
                 
+            echo "</tr>";
         }
             
         function calculateHandValue($cards){
@@ -120,13 +148,16 @@
                 
         }
             
+        shuffle($playerlist);
             
-        displayUser($person1);
-        displayUser($person2);
-        displayUser($person3);
-        displayUser($person4);
+        foreach($playerlist as $player){
+            
+            displayUser($player);
+            
+        }
             
             
+        echo "</table>";
         
         // person object, card object
         // calc card value function
@@ -135,14 +166,23 @@
         $scores= [];
         for($i=0; $i<4; $i++)
         {
-           $personcards = calculateHandValue($peoplearray[$i]["cards"]);
+           $personcards = calculateHandValue($playerlist[$i]["cards"]);
            $scores[]=$personcards;
         }
        $maxV = max($scores);
         $value= array_search($maxV, $scores);
-        echo "Winner ".$value;
+        
+        echo "<table><tr><td>";
+        
+        echo '<span id="winner-text">The Winner is '.$playerlist[$value]["name"].' with '.calculateHandValue($playerlist[$value]["cards"]).' total.</span>';
+        
+        echo "</td></tr></table>";
         ?>
         
+        
+        </div>
+        
     </body>
+    
     
 </html>
