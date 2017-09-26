@@ -1,0 +1,75 @@
+
+body{
+    
+    background-color: #560909;
+    
+}
+
+#wrapper{
+    
+    margin: 0 auto;
+    font-family: monospace;
+    
+}
+#title-text{
+    
+    font-size: 32px;
+    color: silver;
+}
+
+#winner-text{
+    
+     font-size: 28px;
+     
+     color: gold;
+    
+}
+
+.profile-img{
+    
+    width: 100px;
+    height: 100px;
+    
+}
+
+.card-val{
+    
+    font-weight: bolder;
+    font-size: 28px;
+    
+}
+
+.profile-name{
+    
+    font-size: large;
+    font-weight: bold;
+}
+
+table{
+    
+    padding: 5px;
+    
+    margin: 0 auto;
+    
+    margin-top: 5px;
+    
+    background-color: green;
+    
+    border: 15px groove #9A0D0D;
+    
+    border-collapse: separate;
+    
+    border-spacing: 25px 25px;
+    
+    color: white;
+    
+}
+
+td{
+    
+    padding: 3px;
+    border: 3px dotted;
+    
+    text-align: center;
+    
+}
